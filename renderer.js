@@ -28,6 +28,11 @@ const applyZoom = () => {
   image.style.transform = `scale(${zoom})`;
 };
 
+const showPlaceholder = (show) => {
+  placeholder.style.display = show ? "block" : "none";
+  image.style.display = show ? "none" : "block";
+};
+
 openButton.addEventListener("click", async () => {
   // Trigger native file picker through the preload bridge.
   const filePath = await window.imageTool.openImage();
@@ -93,9 +98,18 @@ dropZone.addEventListener("drop", (event) => {
   }
 });
 
+image.addEventListener("load", () => {
+  showPlaceholder(false);
+});
+
+image.addEventListener("error", () => {
+  showPlaceholder(true);
+});
+
 window.addEventListener("DOMContentLoaded", async () => {
   // Initialize UI state when the app loads.
   const opacity = await window.imageTool.getOpacity();
   opacitySlider.value = opacity;
   alwaysOnTopToggle.checked = true;
+  showPlaceholder(true);
 });

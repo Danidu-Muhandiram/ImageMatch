@@ -12,19 +12,24 @@
       <div class="drag-region">ImageMatch</div>
       <div class="controls no-drag">
         <button id="openButton" class="btn">Open Image</button>
-        <label class="toggle">
-          <input id="alwaysOnTopToggle" type="checkbox" checked />
-          <span>Always on top</span>
-        </label>
-        <label class="slider">
-          <span>Opacity</span>
-          <input id="opacitySlider" type="range" min="0.2" max="1" step="0.05" />
-        </label>
-        <button id="resetZoom" class="btn ghost">Reset Zoom</button>
-        <button id="minimizeButton" class="btn ghost">_</button>
-        <button id="closeButton" class="btn ghost">×</button>
+        <div class="window-controls">
+          <button id="minimizeButton" class="btn ghost" title="Minimize">–</button>
+          <button id="closeButton" class="btn ghost" title="Close">×</button>
+        </div>
       </div>
     </header>
+
+    <footer class="bottom-bar no-drag">
+      <label class="toggle">
+        <input id="alwaysOnTopToggle" type="checkbox" checked />
+        <span>Always on top</span>
+      </label>
+      <label class="slider">
+        <span>Opacity</span>
+        <input id="opacitySlider" type="range" min="0.2" max="1" step="0.05" />
+      </label>
+      <button id="resetZoom" class="btn ghost">Reset Zoom</button>
+    </footer>
 
     <!-- Main content area drag and drop images and displays them -->
     <main id="dropZone" class="drop-zone">
