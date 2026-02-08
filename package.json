@@ -1,0 +1,15 @@
+{
+  "name": "image-compare-tool",
+  "version": "0.1.0",
+  "description": "Floating always-on-top image reference window for manual similarity checks.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.0"
+  }
+}

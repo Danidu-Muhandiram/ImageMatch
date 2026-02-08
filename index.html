@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImageMatch</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Draggable toolbar area used to move the borderless window -->
+    <header class="toolbar">
+      <div class="drag-region">ImageMatch</div>
+      <div class="controls no-drag">
+        <button id="openButton" class="btn">Open Image</button>
+        <label class="toggle">
+          <input id="alwaysOnTopToggle" type="checkbox" checked />
+          <span>Always on top</span>
+        </label>
+        <label class="slider">
+          <span>Opacity</span>
+          <input id="opacitySlider" type="range" min="0.2" max="1" step="0.05" />
+        </label>
+        <button id="resetZoom" class="btn ghost">Reset Zoom</button>
+        <button id="minimizeButton" class="btn ghost">_</button>
+        <button id="closeButton" class="btn ghost">×</button>
+      </div>
+    </header>
+
+    <!-- Main content area drag and drop images and displays them -->
+    <main id="dropZone" class="drop-zone">
+      <div id="placeholder" class="placeholder">
+        <p>Drop an image here or click <strong>Open Image</strong>.</p>
+      </div>
+      <div class="image-wrapper">
+        <img id="image" alt="Reference" />
+      </div>
+    </main>
+
+    <!-- handles buttons, drag/drop, zoom, and state -->
+    <script src="renderer.js"></script>
+  </body>
+</html>
