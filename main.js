@@ -48,7 +48,7 @@ ipcMain.handle("open-image", async () => {
   // Open a native file picker and return the selected image path (if any).
   const result = await dialog.showOpenDialog(mainWindow, {
     title: "Select an image",
-    properties: ["openFile"],
+    properties: ["openFile", "multiSelections"],
     filters: [
       { name: "Images", extensions: ["png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff"] }
     ]
@@ -58,7 +58,7 @@ ipcMain.handle("open-image", async () => {
     return null;
   }
 
-  return result.filePaths[0];
+  return result.filePaths;
 });
 
 ipcMain.handle("set-always-on-top", (_event, value) => {

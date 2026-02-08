@@ -8,17 +8,31 @@ const opacitySlider = document.getElementById("opacitySlider");
 const resetZoom = document.getElementById("resetZoom");
 const minimizeButton = document.getElementById("minimizeButton");
 const closeButton = document.getElementById("closeButton");
+const prevImageButton = document.getElementById("prevImage");
+const nextImageButton = document.getElementById("nextImage");
+const thumbImage = document.getElementById("thumbImage");
+const imageName = document.getElementById("imageName");
+const imageCount = document.getElementById("imageCount");
 
 // Zoom state with min/max guardrails.
 let zoom = 1;
 const minZoom = 0.2;
 const maxZoom = 6;
 
+// Multi-image state
+let images = [];
+let currentIndex = -1;
+
+const isImageFile = (filePath) => {
+  return /\.(png|jpe?g|gif|bmp|webp|tiff)$/i.test(filePath);
+};
+
 const setImage = (filePath) => {
   // Load the image from disk and reset zoom to the default scale.
   if (!filePath) return;
   image.src = `file://${filePath.replace(/\\/g, "/")}`;
-  placeholder.style.display = "none";
+  thumbImage.src = image.src;
+  thumbImage.style.display = "block";
   zoom = 1;
   applyZoom();
 };
@@ -31,12 +45,53 @@ const applyZoom = () => {
 const showPlaceholder = (show) => {
   placeholder.style.display = show ? "block" : "none";
   image.style.display = show ? "none" : "block";
+  if (show) {
+    thumbImage.style.display = "none";
+  }
+};
+
+const updateMeta = () => {
+  if (currentIndex === -1 || images.length === 0) {
+    imageName.textContent = "No image loaded";
+    imageCount.textContent = "0 / 0";
+  } else {
+    const filePath = images[currentIndex];
+    imageName.textContent = filePath.split(/[\\/]/).pop();
+    imageCount.textContent = `${currentIndex + 1} / ${images.length}`;
+  }
+
+  prevImageButton.disabled = images.length <= 1;
+  nextImageButton.disabled = images.length <= 1;
+};
+
+const setCurrentIndex = (index) => {
+  if (images.length === 0) {
+    currentIndex = -1;
+    showPlaceholder(true);
+    updateMeta();
+    return;
+  }
+
+  currentIndex = Math.max(0, Math.min(index, images.length - 1));
+  setImage(images[currentIndex]);
+  showPlaceholder(false);
+  updateMeta();
+};
+
+const addImages = (filePaths) => {
+  const filtered = (filePaths || []).filter(isImageFile);
+  if (filtered.length === 0) return;
+
+  const startIndex = images.length;
+  images = images.concat(filtered);
+  setCurrentIndex(startIndex);
 };
 
 openButton.addEventListener("click", async () => {
   // Trigger native file picker through the preload bridge.
-  const filePath = await window.imageTool.openImage();
-  setImage(filePath);
+  const filePaths = await window.imageTool.openImage();
+  if (!filePaths) return;
+  addImages(Array.isArray(filePaths) ? filePaths : [filePaths]);
 });
 
 alwaysOnTopToggle.addEventListener("change", async (event) => {
@@ -67,6 +122,18 @@ closeButton.addEventListener("click", () => {
   window.imageTool.close();
 });
 
+prevImageButton.addEventListener("click", () => {
+  if (images.length === 0) return;
+  const nextIndex = (currentIndex - 1 + images.length) % images.length;
+  setCurrentIndex(nextIndex);
+});
+
+nextImageButton.addEventListener("click", () => {
+  if (images.length === 0) return;
+  const nextIndex = (currentIndex + 1) % images.length;
+  setCurrentIndex(nextIndex);
+});
+
 dropZone.addEventListener("wheel", (event) => {
   // Zoom with the mouse wheel while the cursor is over the viewport.
   if (!image.src) return;
@@ -92,10 +159,8 @@ dropZone.addEventListener("wheel", (event) => {
 
 dropZone.addEventListener("drop", (event) => {
   // Handle a dropped image file from the OS.
-  const file = event.dataTransfer.files[0];
-  if (file) {
-    setImage(file.path);
-  }
+  const files = Array.from(event.dataTransfer.files).map((file) => file.path);
+  addImages(files);
 });
 
 image.addEventListener("load", () => {
@@ -112,4 +177,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   opacitySlider.value = opacity;
   alwaysOnTopToggle.checked = true;
   showPlaceholder(true);
+  updateMeta();
 });

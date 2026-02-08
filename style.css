@@ -46,6 +46,61 @@ body {
   flex: 1;
   -webkit-app-region: no-drag;
 }
+
+.image-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #171717;
+  border-bottom: 1px solid #2b2b2b;
+}
+
+.image-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #0f0f0f;
+  border: 1px solid #2b2b2b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.image-name {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image-count {
+  font-size: 11px;
+  color: #9b9b9b;
+}
 .bottom-bar {
   display: flex;
   align-items: center;
@@ -83,6 +138,15 @@ body {
 
 .btn.ghost {
   background: #2b2b2b;
+}
+
+.btn.icon {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:hover {
