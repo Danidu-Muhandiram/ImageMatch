@@ -75,9 +75,6 @@ ImageMatch currently focuses on **manual visual comparison**, which is often the
 
 - 🤖 **Automatic image similarity detection**
 - 📊 Visual similarity scoring
-- 🧠 AI-assisted composition and pattern analysis
-- 🖼 Side-by-side and grid comparison modes
-- 🎛 Advanced zoom, overlay, and comparison controls
 
 ---
 
