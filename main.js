@@ -68,20 +68,6 @@ ipcMain.handle("set-always-on-top", (_event, value) => {
   return mainWindow.isAlwaysOnTop();
 });
 
-ipcMain.handle("set-opacity", (_event, value) => {
-  // Set window opacity to allow visual overlay comparisons.
-  if (!mainWindow) return 1;
-  const clamped = Math.min(1, Math.max(0.2, Number(value)));
-  mainWindow.setOpacity(clamped);
-  return mainWindow.getOpacity();
-});
-
-ipcMain.handle("get-opacity", () => {
-  // Return current opacity
-  if (!mainWindow) return 1;
-  return mainWindow.getOpacity();
-});
-
 ipcMain.handle("minimize", () => {
   // Minimize the window.
   if (mainWindow) mainWindow.minimize();

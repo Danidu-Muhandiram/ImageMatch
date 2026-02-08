@@ -4,7 +4,6 @@ const placeholder = document.getElementById("placeholder");
 const dropZone = document.getElementById("dropZone");
 const openButton = document.getElementById("openButton");
 const alwaysOnTopToggle = document.getElementById("alwaysOnTopToggle");
-const opacitySlider = document.getElementById("opacitySlider");
 const resetZoom = document.getElementById("resetZoom");
 const minimizeButton = document.getElementById("minimizeButton");
 const closeButton = document.getElementById("closeButton");
@@ -100,11 +99,6 @@ alwaysOnTopToggle.addEventListener("change", async (event) => {
   alwaysOnTopToggle.checked = value;
 });
 
-opacitySlider.addEventListener("input", async (event) => {
-  // Adjust window opacity using the main process API.
-  const value = await window.imageTool.setOpacity(event.target.value);
-  opacitySlider.value = value;
-});
 
 resetZoom.addEventListener("click", () => {
   // Reset zoom to default scale.
@@ -173,8 +167,6 @@ image.addEventListener("error", () => {
 
 window.addEventListener("DOMContentLoaded", async () => {
   // Initialize UI state when the app loads.
-  const opacity = await window.imageTool.getOpacity();
-  opacitySlider.value = opacity;
   alwaysOnTopToggle.checked = true;
   showPlaceholder(true);
   updateMeta();
