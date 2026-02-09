@@ -89,3 +89,19 @@ ImageMatch currently focuses on **manual visual comparison**, which is often the
 ## License
 
 MIT License
+
+---
+
+## 👤 Author
+Built by **Danidu Muhandiram** ([@Danidu-Muhandiram](https://github.com/Danidu-Muhandiram))
+
+---
+
+## 📊 Project Stats
+
+⭐ **If you found this project helpful, please give it a star!** ⭐
+
+![GitHub stars](https://img.shields.io/github/stars/Danidu-Muhandiram/ImageMatch?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Danidu-Muhandiram/ImageMatch?style=social)
+![GitHub issues](https://img.shields.io/github/issues/Danidu-Muhandiram/ImageMatch)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Danidu-Muhandiram/ImageMatch)
